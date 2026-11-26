@@ -7,10 +7,10 @@ namespace RTS
     {
         public static List<Vector3> CalculatePositions(Vector3 center, int unitCount, float spacing)
         {
-            List<Vector3> positions = new();
-
             if (unitCount <= 0)
-                return positions;
+                return new  List<Vector3>();
+            
+            List<Vector3> positions = new(unitCount);
             
             int columns = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
             int rows = Mathf.CeilToInt((float) unitCount / columns);
@@ -19,7 +19,7 @@ namespace RTS
             {
                 int unitsInRow = Mathf.Min(columns, unitCount - row * columns);
 
-                for (int col = 0; col < columns; col++)
+                for (int col = 0; col < unitsInRow; col++)
                 {
                     float x = (col - (unitsInRow - 1) / 2f) * spacing;
                     float z = (row - (rows - 1) / 2f) * spacing;

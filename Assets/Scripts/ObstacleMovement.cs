@@ -3,7 +3,7 @@ using UnityEngine;
 public class ObstacleMovement : MonoBehaviour
 {
     [SerializeField] private Vector3 offset = new Vector3(4f, 0f, 0f);
-    [SerializeField] private float speed = 2f;
+    [SerializeField, Min(0f)] private float speed = 2f;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -22,7 +22,7 @@ public class ObstacleMovement : MonoBehaviour
             speed * Time.deltaTime
         );
 
-        if (Vector3.Distance(transform.position, endPosition) < 0.01f)
+        if (transform.position == endPosition)
         {
             (startPosition, endPosition) = (endPosition, startPosition);
         }

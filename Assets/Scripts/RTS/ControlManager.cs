@@ -11,7 +11,7 @@ namespace RTS
         [SerializeField] private float dragThreshold = 10f;
         [SerializeField] private List<ControllableUnit> allUnits = new List<ControllableUnit>();
     
-        [SerializeField] private float formationSpacing = 1.5f;
+        [SerializeField, Min(0.01f)] private float formationSpacing = 1.5f;
         [SerializeField] private LayerMask groundLayer;
         private LineRenderer lineRenderer;
     
@@ -104,7 +104,7 @@ namespace RTS
                     if (units.Contains(unit))
                         continue;
 
-                    unit.SetControlled(true);
+                    unit.SetSelected(true);
                     units.Add(unit);
                 }
             }
@@ -170,9 +170,9 @@ namespace RTS
             for (int i = 0; i < units.Count; i++)
             {
                 if (append)
-                    units[i].AddWaypoint(destinations[i]);
+                    units[i].Movement.AddWaypoint(destinations[i]);
                 else
-                    units[i].SendTo(destinations[i]);
+                    units[i].Movement.SendTo(destinations[i]);
             }
         }
 
@@ -186,7 +186,7 @@ namespace RTS
                 {
                     Debug.Log("Clicked on unit");
                     ClearSelection();
-                    unit.SetControlled(true);
+                    unit.SetSelected(true);
                     units.Add(unit);
                 } else
                 {
@@ -200,7 +200,7 @@ namespace RTS
         {
             foreach (ControllableUnit unit in units)
             {
-                unit.SetControlled(false);
+                unit.SetSelected(false);
             }
             units.Clear();
             ClearLine();
@@ -252,7 +252,7 @@ namespace RTS
                 if (!validPosition.HasValue)
                     return false;
 
-                if (!units[i].TryCalculatePath(validPosition.Value, path))
+                if (!units[i].Movement.TryCalculatePath(validPosition.Value, path))
                     return false;
                 
                 destinations.Add(validPosition.Value);
