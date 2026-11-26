@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RTS
+namespace RTS.Units
 {
     public class ControllableUnit : MonoBehaviour
     {

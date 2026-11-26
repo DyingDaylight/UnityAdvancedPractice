@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace RTS
+namespace RTS.Units
 {
     public class UnitMovement : MonoBehaviour
     {
